@@ -111,7 +111,7 @@
             id="phone"
             required
             label="Phone"
-            type="tel"
+            type="text"
             name="phone"
             placeholder="+1 (555) 123-4567"
             bind:value={$form.phone}

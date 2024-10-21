@@ -2,7 +2,7 @@
   type InputType = "text" | "password" | "checkbox" | "email" | "select" | "date" | "number";
   export let label = "";
   export let id = "";
-  export let type: InputType = "text";
+  export let type: InputType;
   export let name = "";
   export let value = "";
   export let error: string | string[] | undefined = "";
