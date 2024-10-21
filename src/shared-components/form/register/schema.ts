@@ -33,6 +33,7 @@ export const registerUserSchema = z.object({
   specialRequest: z.string().optional(),
 
   // Other
+  resume: z.instanceof(File).optional(),
   howYouHeard: z.string().max(200),
   whyAttend: z.string().max(1000),
   codeOfConductUBHacking: z.boolean(),
