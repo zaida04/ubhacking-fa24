@@ -1,5 +1,6 @@
 -- Create extension for UUID generation
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Create the registration table
 CREATE TABLE registration (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -42,16 +43,18 @@ CREATE TABLE registration (
     special_request TEXT,
     
     -- Other
-    resume_url TEXT,
+	resume_url TEXT,
     how_you_heard TEXT,
     why_attend TEXT,
     code_of_conduct_ub_hacking BOOLEAN NOT NULL,
     code_of_conduct BOOLEAN NOT NULL,
     data_sharing BOOLEAN NOT NULL,
     communication BOOLEAN
-)
+);
+
 -- Create index on email for faster lookups
-CREATE INDEX idx_registration_email ON registration(email)
+CREATE INDEX idx_registration_email ON registration(email);
+
 -- Create a function to update the updated_at timestamp
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
@@ -59,19 +62,21 @@ BEGIN
     NEW.updated_at = now();
     RETURN NEW;
 END;
-$$ language 'plpgsql'
+$$ language 'plpgsql';
+
 -- Create a trigger to automatically update the updated_at timestamp
 CREATE TRIGGER update_registration_modtime
 BEFORE UPDATE ON registration
 FOR EACH ROW
-EXECUTE FUNCTION update_modified_column()
+EXECUTE FUNCTION update_modified_column();
+
 -- Add any necessary comments
-COMMENT ON TABLE registration IS 'Stores user registration information for the event'
-COMMENT ON COLUMN registration.email IS 'Unique email address of the registrant'
-COMMENT ON COLUMN registration.password IS 'Hashed password (if not using Supabase Auth)'
-COMMENT ON COLUMN registration.level_of_study IS 'Current level of study (e.g., undergraduate, graduate)'
-COMMENT ON COLUMN registration.address_in_usa IS 'Whether the registrant has a USA address'
-COMMENT ON COLUMN registration.dietary_restrictions IS 'Array of dietary restrictions'
-COMMENT ON COLUMN registration.allergies IS 'Array of allergies'
-COMMENT ON COLUMN registration.resume_url IS 'URL to the uploaded resume file'
-COMMENT ON COLUMN registration.why_attend IS 'Registrant''s reason for attending the event'
+COMMENT ON TABLE registration IS 'Stores user registration information for the event';
+COMMENT ON COLUMN registration.email IS 'Unique email address of the registrant';
+COMMENT ON COLUMN registration.password IS 'Hashed password (if not using Supabase Auth)';
+COMMENT ON COLUMN registration.level_of_study IS 'Current level of study (e.g., undergraduate, graduate)';
+COMMENT ON COLUMN registration.address_in_usa IS 'Whether the registrant has a USA address';
+COMMENT ON COLUMN registration.dietary_restrictions IS 'Array of dietary restrictions';
+COMMENT ON COLUMN registration.allergies IS 'Array of allergies';
+COMMENT ON COLUMN registration.resume_url IS 'URL to the uploaded resume file';
+COMMENT ON COLUMN registration.why_attend IS 'Registrant''s reason for attending the event';
