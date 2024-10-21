@@ -92,8 +92,8 @@ const getFormData = (form: any) => {
 		how_you_heard: form.data.howYouHeard,
 		why_attend: form.data.whyAttend,
 		code_of_conduct_ub_hacking: form.data.codeOfConductUBHacking,
-		code_of_conduct: form.data.codeOfConduct,
-		data_sharing: form.data.dataSharing,
-		communication: form.data.communication
+		code_of_conduct: form.data.codeOfConductMLH,
+		data_sharing: form.data.dataSharingMLH,
+		communication: form.data.communicationMLH
 	}
 }
