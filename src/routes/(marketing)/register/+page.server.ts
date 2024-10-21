@@ -43,6 +43,19 @@ export const actions: Actions = {
 
 		try {
 			const formData = getFormData(form);
+
+			// upload resume
+			const file = form.data.resume
+			if (file) {
+			  const { data, error } = await supabase.storage
+			  .from('resume')
+			  .upload(`resume/${formData.name_first}`, file)
+				  if (error) {
+					  throw error;
+				  }
+				  formData.resume_url = data.fullPath
+			}
+
 			// Insert data into Supabase
 			const { data, error } = await supabase
 				.from('registration')
@@ -94,6 +107,7 @@ const getFormData = (form: any) => {
 		code_of_conduct_ub_hacking: form.data.codeOfConductUBHacking,
 		code_of_conduct: form.data.codeOfConductMLH,
 		data_sharing: form.data.dataSharingMLH,
-		communication: form.data.communicationMLH
+		communication: form.data.communicationMLH,
+		resume_url: "None"
 	}
 }
